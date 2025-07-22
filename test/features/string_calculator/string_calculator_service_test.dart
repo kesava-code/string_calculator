@@ -71,5 +71,16 @@ void main() {
         expect(result, 6);
       },
     );
+test(
+      "add should support multiple custom delimiters specified in brackets",
+      () {
+        final input = '//[*][%]\n1*2%3';
+
+        final result = stringCalculator.add(numberString: input);
+
+        expect(result, 6);
+      },
+    );
+
   });
 }
