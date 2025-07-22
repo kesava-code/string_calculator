@@ -8,11 +8,15 @@ class StringCalculatorService {
   int add({required String numberString}) {
     if (numberString.isEmpty) return 0;
     final _ParseResult parseResult = _parseInput(stringToParse: numberString);
-    return parseResult.numbersToProcess
+    final numbers =  parseResult.numbersToProcess
         .split(parseResult.delimiter)
         .where((stringNumber) => stringNumber.trim().isNotEmpty)
-        .map((stringNumber) => int.parse(stringNumber.trim()))
-        .fold(0, (previousValue, element) => previousValue + element);
+        .map((stringNumber) => int.parse(stringNumber.trim())).toList();
+final negativeNumbers = numbers.where((number) => number < 0);
+    if(negativeNumbers.isNotEmpty) {
+throw Exception('negative numbers not allowed: ${negativeNumbers.join(', ')}');
+    }
+       return  numbers.fold(0, (previousValue, element) => previousValue + element);
   }
 
   _ParseResult _parseInput({required String stringToParse}) {

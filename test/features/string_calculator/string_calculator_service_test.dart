@@ -39,8 +39,8 @@ void main() {
     });
 test("should throw an exception showing all negative numbers in the message", () {
       const input = "//;\n1;-2;-4;5";
-      final result = stringCalculator.add(numberString: input);
-      expect(result, throwsA(
+      
+      expect(() => stringCalculator.add(numberString: input), throwsA(
         isA<Exception>().having(
           (e) => e.toString(),
           'message',
