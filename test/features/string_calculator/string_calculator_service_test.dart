@@ -17,7 +17,7 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 1);
     });
-     test("Should return the sum of two numbers", () {
+    test("Should return the sum of two numbers", () {
       const input = "1,5";
       final result = stringCalculator.add(numberString: input);
       expect(result, 6);
@@ -32,22 +32,33 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 6);
     });
-    test("support different delimiters", () {
+    test("should support different delimiters", () {
       const input = "//;\n1;2";
       final result = stringCalculator.add(numberString: input);
       expect(result, 3);
     });
-test("should throw an exception showing all negative numbers in the message", () {
-      const input = "//;\n1;-2;-4;5";
-      
-      expect(() => stringCalculator.add(numberString: input), throwsA(
-        isA<Exception>().having(
-          (e) => e.toString(),
-          'message',
-          'Exception: negative numbers not allowed: -2, -4',
-        ),));
+    test(
+      "should throw an exception showing all negative numbers in the message",
+      () {
+        const input = "//;\n1;-2;-4;5";
+
+        expect(
+          () => stringCalculator.add(numberString: input),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'message',
+              'Exception: negative numbers not allowed: -2, -4',
+            ),
+          ),
+        );
+      },
+    );
+
+    test("should ignore numbers bigger than 1000", () {
+      const input = "//;\n1;2; 1001";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 3);
     });
-
-
   });
 }
