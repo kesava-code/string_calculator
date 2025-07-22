@@ -32,5 +32,10 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 6);
     });
+    test("support different delimiters", () {
+      const input = "//;\n1;2";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 3);
+    });
   });
 }
