@@ -14,7 +14,6 @@ class StringCalculatorService {
         .map((stringNumber) => int.parse(stringNumber.trim()))
         .where((number) => number <= 1000)
         .toList();
-    print(numbers);
     _validateNumbers(numbers: numbers);
     return numbers.fold(0, (previousValue, element) => previousValue + element);
   }
@@ -27,25 +26,25 @@ class StringCalculatorService {
       );
     }
 
-    if(stringToParse.startsWith("//[")) {
-      final stringSeperatorIndex = stringToParse.indexOf(']');
-    final Pattern delimiter = stringToParse.substring(3, stringSeperatorIndex);
-    final String stringToProcess = stringToParse.substring(
-      stringSeperatorIndex + 2,
-    );
-    return _ParseResult(
-      delimiter: delimiter,
-      numbersToProcess: stringToProcess,
-    );
-    }
-
     final stringSeperatorIndex = stringToParse.indexOf('\n');
-    final Pattern delimiter = stringToParse.substring(2, stringSeperatorIndex);
+    final header = stringToParse.substring(2, stringSeperatorIndex);
     final String stringToProcess = stringToParse.substring(
       stringSeperatorIndex + 1,
     );
+     // Regex to find content within brackets, e.g., find "*" and "%" from "[*][%]"
+    final delimiterRegex = RegExp(r'\[(.*?)\]');
+    final matches = delimiterRegex.allMatches(header);
+    if (matches.isEmpty) {
+      return _ParseResult(
+          delimiter: header, numbersToProcess: stringToProcess);
+    }
+     // Extract all matched delimiters and escape any special regex characters.
+    final delimiters = matches.map((match) {
+      return RegExp.escape(match.group(1)!);
+    });
+ final combinedDelimiterPattern = RegExp(delimiters.join('|'));
     return _ParseResult(
-      delimiter: delimiter,
+      delimiter: combinedDelimiterPattern,
       numbersToProcess: stringToProcess,
     );
   }
