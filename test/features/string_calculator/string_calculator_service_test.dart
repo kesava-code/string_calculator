@@ -27,5 +27,10 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 24);
     });
+    test("should handle \n as a delimiter between numbers", () {
+      const input = "1\n2,3";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 6);
+    });
   });
 }
