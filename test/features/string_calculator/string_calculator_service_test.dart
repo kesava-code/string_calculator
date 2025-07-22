@@ -60,5 +60,16 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 3);
     });
+
+    test(
+      "add should support multi-character delimiters specified in brackets",
+      () {
+        final input = '//[***]\n1***2***3';
+
+        final result = stringCalculator.add(numberString: input);
+
+        expect(result, 6);
+      },
+    );
   });
 }

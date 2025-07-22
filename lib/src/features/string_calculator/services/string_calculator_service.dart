@@ -11,10 +11,8 @@ class StringCalculatorService {
     final numbers = parseResult.numbersToProcess
         .split(parseResult.delimiter)
         .where((stringNumber) => stringNumber.trim().isNotEmpty)
-        .map((stringNumber) => int.parse(stringNumber.trim()))
-        .where((number) => number <= 1000)
+        .map((stringNumber) => int.parse(stringNumber.trim())).where((number) => number <=1000)
         .toList();
-    print(numbers);
     _validateNumbers(numbers: numbers);
     return numbers.fold(0, (previousValue, element) => previousValue + element);
   }
