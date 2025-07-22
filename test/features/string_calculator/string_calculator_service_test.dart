@@ -22,5 +22,10 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 6);
     });
+    test("Should return the sum of multiple numbers seperated by ,", () {
+      const input = "1,5, 8, 10,";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 24);
+    });
   });
 }
