@@ -3,7 +3,7 @@ class StringCalculatorService {
     if (numberString.isEmpty) return 0;
 
     return numberString
-        .split(",")
+        .split(",").where((stringNumber) => stringNumber.isNotEmpty)
         .map((stringNumber) => int.parse(stringNumber))
         .fold(0, (previousValue, element) => previousValue + element);
   }
