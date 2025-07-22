@@ -10,8 +10,8 @@ class StringCalculatorService {
     final _ParseResult parseResult = _parseInput(stringToParse: numberString);
     return parseResult.numbersToProcess
         .split(parseResult.delimiter)
-        .where((stringNumber) => stringNumber.isNotEmpty)
-        .map((stringNumber) => int.parse(stringNumber))
+        .where((stringNumber) => stringNumber.trim().isNotEmpty)
+        .map((stringNumber) => int.parse(stringNumber.trim()))
         .fold(0, (previousValue, element) => previousValue + element);
   }
 

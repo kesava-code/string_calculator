@@ -37,5 +37,17 @@ void main() {
       final result = stringCalculator.add(numberString: input);
       expect(result, 3);
     });
+test("should throw an exception showing all negative numbers in the message", () {
+      const input = "//;\n1;-2;-4;5";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, throwsA(
+        isA<Exception>().having(
+          (e) => e.toString(),
+          'message',
+          'Exception: negative numbers not allowed: -2, -4',
+        ),));
+    });
+
+
   });
 }
