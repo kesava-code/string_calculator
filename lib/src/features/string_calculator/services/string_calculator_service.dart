@@ -11,8 +11,10 @@ class StringCalculatorService {
     final numbers = parseResult.numbersToProcess
         .split(parseResult.delimiter)
         .where((stringNumber) => stringNumber.trim().isNotEmpty)
-        .map((stringNumber) => int.parse(stringNumber.trim())).where((number) => number <=1000)
+        .map((stringNumber) => int.parse(stringNumber.trim()))
+        .where((number) => number <= 1000)
         .toList();
+    print(numbers);
     _validateNumbers(numbers: numbers);
     return numbers.fold(0, (previousValue, element) => previousValue + element);
   }
@@ -23,6 +25,18 @@ class StringCalculatorService {
         delimiter: RegExp(r'[,\n]'),
         numbersToProcess: stringToParse,
       );
+    }
+
+    if(stringToParse.startsWith("//[")) {
+      final stringSeperatorIndex = stringToParse.indexOf(']');
+    final Pattern delimiter = stringToParse.substring(3, stringSeperatorIndex);
+    final String stringToProcess = stringToParse.substring(
+      stringSeperatorIndex + 2,
+    );
+    return _ParseResult(
+      delimiter: delimiter,
+      numbersToProcess: stringToProcess,
+    );
     }
 
     final stringSeperatorIndex = stringToParse.indexOf('\n');
