@@ -7,6 +7,20 @@ void main() {
     setUp(() {
       stringCalculator = StringCalculatorService();
     });
-    
+    test("Should return 0 when the input string is empty", () {
+      const input = "";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 0);
+    });
+    test("Should return the number itself for a single number", () {
+      const input = "1";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 1);
+    });
+     test("Should return the sum of two numbers", () {
+      const input = "1,5";
+      final result = stringCalculator.add(numberString: input);
+      expect(result, 6);
+    });
   });
 }
